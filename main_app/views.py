@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+import uuid
+import boto3
 from .models import Thread, Post, Comment, Image
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -6,6 +8,10 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+S3_BASE_URL = 'https://s3-us-east-2.amazonaws.com/'
+BUCKET = 'catcollector187'
 
 # Create your views here.
 
@@ -25,7 +31,7 @@ class ThreadCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-
+    
 
 class ThreadDelete(LoginRequiredMixin, DeleteView):
     model = Thread
@@ -129,4 +135,20 @@ class CommentUpdate(LoginRequiredMixin, UpdateView):
   model = Comment
   fields = ['content']
 
-
+def add_image(request, object_id):
+    # photo-file will be the "name" attribute on the <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # build the full url string
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            # we can assign to cat_id or cat (if you have a cat object)
+            Image.objects.create(url=url, object_id=object_id)
+        except:
+            print('An error occurred uploading file to S3')
+    return redirect('detail', object_id=object_id)

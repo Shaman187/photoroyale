@@ -18,4 +18,5 @@ urlpatterns = [
     path('threads/posts/<int:post_id>/comments/new/', views.CommentCreate.as_view(), name='comment_create'),
     path('threads/posts/comments/<int:pk>/delete/', views.CommentDelete.as_view(), name='comment_delete'),
     path('threads/posts/comments/<int:pk>/update/', views.CommentUpdate.as_view(), name='comment_update'),  
+    path('add_image/<int:object_id>/', views.add_image, name='add_image'),
 ]
