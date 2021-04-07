@@ -7,9 +7,9 @@
 
 <div class="card">
     <div class="card-content">
-        <a href="{% url 'thread_posts_index' thread.id %}"> {{ thread.title }} </a>
-        <span class="card-title"> {{ thread.title }} </span>
-        <p>Description: {{ thread.description }} </p>
+        <a href="{% url 'thread_posts_index' thread.thread.id %}"> <img src="{{ thread.image.url }}" alt=""> </a>
+        <span class="card-title"> {{ thread.thread.title }} </span>
+        <p>Description: {{ thread.thread.description }}</p>
     </div>
 </div>
 

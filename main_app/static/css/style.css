@@ -2,15 +2,56 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  background: rgb(26, 25, 25);
 }
 main {
   flex: 1 0 auto;
 }
-footer.page-footer {
+.page-footer {
   padding-top: 0;
   text-align: right;
+  background: rgb(253, 197, 0);
 }
-
-img{
+.img{
   width: 300px;
 }
+.navbar-fixed{
+  color: black;
+}
+.nav-wrapper{
+  background:rgb(253, 197, 0);
+  color: black;
+  display: flex;
+  justify-content: center;
+  border-radius: 3px;
+}
+.right{
+  color: black;
+}
+.nav{
+  color: black;
+  font-size: 24px;
+  font-family: 'Bangers', cursive;
+}
+.title{
+  font-size: 50px;
+  color:black;
+  font-family: 'Bangers', cursive;
+}
+.center{
+  font-family: 'Bangers', cursive;
+  font-size: 24px;
+}
+.container{
+  color: rgb(255, 233, 0);
+  font-family: 'Bebas Neue', cursive;
+  text-align: center;
+}
+.card{
+  background: rgb(92, 0, 153);
+  font-family: 'Bebas Neue', cursive;
+  text-align: left;
+  box-shadow: 3px 7px #E0CA00;
+  border-radius: 3px;
+}
+

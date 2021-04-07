@@ -22,6 +22,7 @@ class Thread(models.Model):
 class Post(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=200)
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'post_id': self.id})

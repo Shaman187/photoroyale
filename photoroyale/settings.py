@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'photoroyale.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'photoroyale'
+        'NAME': 'photoroyale',
     }
 }
 

@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
   <!-- Leaving the action empty makes the form post to the same url used to display it -->
-  <form action="" method="post">
+  <form action= "/posts/create/{{ thread_id }}/" method="post" enctype="multipart/form-data">
     <!-- Django requires the following for security purposes -->
     {% csrf_token %}
     <table>
       <!-- Render the inputs inside of <tr>s & <td>s -->
-      {{ form.as_table }}
+    <input required type="file" name="image">
+    <input required type="text" name="description">
     </table>
     <input type="submit" value="Submit!" class="btn">
   </form>

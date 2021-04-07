@@ -11,7 +11,7 @@
 <a class='btn' href="{% url 'thread_delete' thread.id %}">Delete ???</a>
 <a class='btn' href="{% url 'thread_update' thread.id %}">Edit ???</a>
 {% endif %}
-<a class='btn' href="{% url 'post_create' thread.id %}">Create Post ???</a>
+<a class='btn' href="{% url 'post_render' thread.id %}">Create Post ???</a>
 
 {% for post in posts %}
 <div class="card">
