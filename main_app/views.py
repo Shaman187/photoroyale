@@ -9,6 +9,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ThreadForm, PostForm
+from django.urls import reverse
+
 
 import uuid
 import boto3
@@ -54,7 +56,7 @@ def ThreadCreate(request):
         new_thread.save()
 
         add_photo(request.FILES.get('image', None), new_thread.id, ContentType.objects.get_for_model(new_thread))
-        print("This is the thread", new_thread)
+        return redirect(f'/threads/{new_thread.id}')
 
     return redirect('/threads/')
 
@@ -129,11 +131,8 @@ def post_create(request, thread_id):
 class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
 
-    # def get_object(self, queryset = None):
-    #     thread = self.kwargs['thread_id']
-    #     print(thread)
-    
-    success_url = '/threads/'
+    def get_success_url(self):
+        return reverse('thread_posts_index', kwargs={'thread_id': self.object.thread.id}) 
 
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
@@ -143,11 +142,11 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     comments = Comment.objects.filter(post=post_id)
-
+    thread = Thread.objects.get(id=post.thread.id)
     contenttype_obj = ContentType.objects.get_for_model(post)
     image = Image.objects.filter(object_id=post.id, content_type=contenttype_obj).first()
 
-    return render(request, 'threads/posts/detail.html', {'post': post, 'comments': comments, 'image': image})
+    return render(request, 'threads/posts/detail.html', {'post': post, 'comments': comments, 'image': image, 'thread': thread})
 
 
 def signup(request):

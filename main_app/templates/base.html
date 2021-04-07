@@ -7,9 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Photo Royale</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
@@ -35,52 +35,12 @@
     </nav>
   </header>
   <main class="container">
-    <!-- <div class="container">
-      <div class="big">
-          <img src="" alt="">
-      </div>
-      <div class="vertical">
-          <img src="" alt="">
-      </div>
-      <div>
-          <img src="" alt="">
-      </div>
-      <div class="horizontal">
-          <img src="" alt="">
-      </div>
-      <div class="vertical">
-          <img src="" alt="">
-      </div>
-      <div>
-          <img src="" alt="">
-      </div>
-      <div class="horizontal">
-          <img src="" alt="">
-      </div>
-      <div class="big">
-          <img src="" alt="">
-      </div>
-      <div>
-          <img src="" alt="">
-      </div>
-      <div class="vertical">
-          <img src="" alt="">
-      </div>
-      <div>
-          <img src="" alt="">
-      </div>
-      <div>
-          <img src="" alt="">
-      </div>
-      <div>
-          <img src="" alt="">
-      </div> -->
   </div>
-    {% block content %}
-    {% endblock %}
-  </main>
-  <footer class="page-footer">
-    <div class="right">All Rights Reserved, &copy; 2021 Photo Royale &nbsp;</div>
-  </footer>
+  {% block content %}
+  {% endblock %}
+</main>
+<footer class="page-footer">
+  <div class="right">All Rights Reserved, &copy; 2021 Photo Royale &nbsp;</div>
+</footer>
 </body>
 </html>

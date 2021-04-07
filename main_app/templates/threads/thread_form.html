@@ -6,8 +6,8 @@
     {% csrf_token %}
     <table>
       <!-- Render the inputs inside of <tr>s & <td>s -->
-        <input required placeholder="title" type="text" name="title">
-        <input required placeholder="description" type="text" name="description">
+        <input required id="threadbutton" placeholder="title" type="text" name="title">
+        <input required id="threadbutton" placeholder="description" type="text" name="description">
         <input required type="file" name="image">
     </table>
     <input type="submit" value="Submit!" class="btn">
