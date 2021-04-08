@@ -13,8 +13,10 @@
 <a class='btn' href="{% url 'post_update' post.id %}">Edit ?</a>
 {% endif %}
 
+{% if user %}
 <a class='btn' href="{% url 'comment_create' post.id %}">Comment</a>
 <a class='btn' href="{% url 'thread_posts_index' thread.id %}">Back</a>
+{% endif %}
 
 {% for comment in comments %}
 
