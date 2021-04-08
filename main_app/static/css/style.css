@@ -71,7 +71,8 @@ main {
   font-family: 'Bebas Neue', cursive;
   text-align: left;
   box-shadow: 3px 7px #E0CA00;
-  padding: 30px;
+  padding-top: 5px;
+  padding: 10px;
   margin: 15px 10px;
   border-radius: var(--card_border_radius);
   grid-template-rows: auto;
@@ -112,4 +113,13 @@ input[type="text"]{
 }
 .card-large {
   grid-row-end: span var(--card_large);
+}
+
+.post-card{
+  margin: 0;
+  padding: 0;
+  width: 80vw;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, var(--card_width));
+  background-color: rgb(25, 25, 26);
 }
