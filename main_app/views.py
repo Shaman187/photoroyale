@@ -43,6 +43,7 @@ def thread_render(request):
 def post_render(request, thread_id):
     return render(request, 'threads/posts/post_form.html', {'thread_id': thread_id})
 
+@login_required
 def ThreadCreate(request):
     # create the ModelForm using the data in request.POST
     form = ThreadForm(request.POST)
@@ -129,6 +130,7 @@ def thread_posts_index(request, thread_id):
 
     return render(request, 'threads/posts/index.html', {'posts': fullposts, 'thread': thread, 'image': image,})
 
+@login_required
 def post_create(request, thread_id):
     # create the ModelForm using the data in request.POST
     form = PostForm(request.POST)
