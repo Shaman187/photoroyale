@@ -14,7 +14,7 @@ No more links!!!!
 
 ### The Team
 - Pat Feeny - https://github.com/pfeeny84 pfeeny84@gmail.com
-- Michael LaSota - https://github.com/StormFlame
+- Michael LaSota - https://github.com/StormFlame michael.j.lasota@gmail.com
 - Sully Mort - https://github.com/sulledy221 sullivanmort19@gmail.com
 - Chris Vrtis - https://github.com/Shaman187 vibesintime@gmail.com
 ### Technologies Used
