@@ -26,10 +26,10 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html')
-
+@login_required
 def thread_render(request):
     return render(request, 'threads/thread_form.html')
-
+@login_required
 def post_render(request, thread_id):
     return render(request, 'threads/posts/post_form.html', {'thread_id': thread_id})
 

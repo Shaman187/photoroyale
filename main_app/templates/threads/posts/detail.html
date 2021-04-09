@@ -1,22 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{% load static %}
 <h1>{{ post.description }}</h1>
 
 {% if image %}
 <img src="{{ image.url }}" alt="">
+{% else %}
+<img src="{% static "default.png" %}" alt="">
 {% endif %}
-<p> </p>
 
 {% if user == post.user %}
 <a class='btn' href="{% url 'post_delete' post.id %}">Delete ?</a>
 <a class='btn' href="{% url 'post_update' post.id %}">Edit ?</a>
 {% endif %}
 
-{% if user %}
+{% if user.is_authenticated %}
 <a class='btn' href="{% url 'comment_create' post.id %}">Comment</a>
-<a class='btn' href="{% url 'thread_posts_index' thread.id %}">Back</a>
 {% endif %}
+<a class='btn' href="{% url 'thread_posts_index' thread.id %}">Back</a>
 
 {% for comment in comments %}
 
