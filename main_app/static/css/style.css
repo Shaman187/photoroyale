@@ -150,3 +150,7 @@ form {
   margin-left: 25px;
   color:rgb(253, 197, 0);
 }
+
+.file-field .btn{
+  float: none;
+}
