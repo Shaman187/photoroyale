@@ -154,3 +154,11 @@ form {
 .file-field .btn{
   float: none;
 }
+
+.post-image{
+  width:100%;
+}
+
+.thread_image{
+  width: 80%;
+}
