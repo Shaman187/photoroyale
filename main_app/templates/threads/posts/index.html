@@ -3,7 +3,7 @@
 {% load static %}
 <h1> {{ thread.title }} </h1>
 {% if image %}
-<img src="{{ image.url }}" alt="There should be an image here" class="thread_image">
+<img src="{{ image.url }}" alt="There should be an image here" class="thread-image">
 {% else %}
 <img src="{% static 'default.png' %}" alt="">
 {% endif %}
@@ -24,11 +24,11 @@
 <div class="card">
     <div class="card-content">
         {% if post.image %}
-        <a href="{% url 'post_detail' post.post.id %}"><img src="{{ post.image.url }}" class="post_image"></a>
+        <a href="{% url 'post_detail' post.post.id %}"><img src="{{ post.image.url }}" class="post-image"></a>
         <p> {{ post.post.description }} </p>
         <p>Created By: {{ post.post.user }} on {{ post.post.created_at }}</p>
         {% else %}
-        <a href="{% url 'post_detail' post.post.id %}"><img src="{% static 'default.png' %}" alt="" class="post_image"></a>
+        <a href="{% url 'post_detail' post.post.id %}"><img src="{% static 'default.png' %}" alt="" class="post-image"></a>
         {% endif %}
     </div>
 </div>
