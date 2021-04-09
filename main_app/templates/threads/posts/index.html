@@ -21,7 +21,7 @@
 <div class="card">
     <div class="card-content">
         {% if post.image %}
-        <a href="{% url 'post_detail' post.post.id %}"><img src="{{ post.image.url }}" style="width:100px;"></a>
+        <a href="{% url 'post_detail' post.post.id %}"><img src="{{ post.image.url }}" style="width:100%;"></a>
         <p> {{ post.post.description }} </p>
         <p>Created By: {{ post.post.user }} on {{ post.post.created_at }}</p>
         {% else %}

@@ -27,16 +27,6 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-
-# class ThreadCreate(LoginRequiredMixin, CreateView):
-#     model = Thread
-#     fields = ['title', 'description']
-
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         add_photo(self.request.FILES.get('image', None), 12, ContentType.objects.get_for_model(Thread.objects.first()))
-#         return super().form_valid(form)
-
 def thread_render(request):
     return render(request, 'threads/thread_form.html')
 
@@ -49,36 +39,32 @@ def ThreadCreate(request):
     form = ThreadForm(request.POST)
     # validate the form
     if form.is_valid():
-        # don't save the form to the db until it
-        # has the cat_id assigned
-        new_thread = form.save(commit=False)
-        new_thread.user = request.user
-        new_thread.save()
+        if 'image' in request.FILES.get('image', None).content_type:
+            new_thread = form.save(commit=False)
+            new_thread.user = request.user
+            new_thread.save()
 
-        add_photo(request.FILES.get('image', None), new_thread.id, ContentType.objects.get_for_model(new_thread))
-        return redirect(f'/threads/{new_thread.id}')
+            check = add_photo(request.FILES.get('image', None), new_thread.id, ContentType.objects.get_for_model(new_thread))
+
+            if check: return redirect(f'/threads/{new_thread.id}')
 
     return redirect('/threads/')
 
 def add_photo(photo_file, object_id, object_type):
+
     if photo_file:
-        size = (1024, 1024)
-        im = pilImage.open(photo_file)
-        # img_width, img_height = im.size
-        # im = im.crop(((img_width - min(im.size)) // 2,
-        #               (img_height - min(im.size)) // 2,
-        #               (img_width + min(im.size)) // 2,
-        #               (img_height + min(im.size)) // 2,
-        #             ))
-        im.thumbnail(size)
-        buffer = BytesIO()
-        im.save(buffer, 'PNG')
-        buffer.seek(0)
         s3 = boto3.client('s3')
         # need a unique "key" for S3 / needs image file extension too
         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
         # just in case something goes wrong
         try:
+            size = (1024, 1024)
+            im = pilImage.open(photo_file)
+            im.thumbnail(size)
+            buffer = BytesIO()
+            im.save(buffer, 'PNG')
+            buffer.seek(0)
+
             s3.put_object(
                 Bucket=BUCKET,
                 Key=key,
@@ -90,6 +76,7 @@ def add_photo(photo_file, object_id, object_type):
             # we can assign to cat_id or cat (if you have a cat object)
             Image.objects.create(url=url, content_type=object_type, object_id=object_id)
         except:
+            Thread.objects.get(id=object_id).delete()
             return False
     return True
 
