@@ -9,7 +9,12 @@
     <table>
       <!-- Render the inputs inside of <tr>s & <td>s -->
         <input required type="text" name="description">
-        <input required placeholder="caption" type="file" name="image">
+         <div class="file-field input-field">
+          <div class="btn">
+            <span>Browse</span>
+            <input type = "file" name ='image' required>
+          </div>  
+        </div>
     </table>
     <input type="submit" value="Submit!" class="btn">
   </form>

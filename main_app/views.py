@@ -44,10 +44,14 @@ def ThreadCreate(request):
             new_thread.user = request.user
             new_thread.save()
 
-            check = add_photo(request.FILES.get('image', None), new_thread.id, ContentType.objects.get_for_model(new_thread))
+            check_try = add_photo(request.FILES.get('image', None), new_thread.id, ContentType.objects.get_for_model(new_thread))
 
-            if check: return redirect(f'/threads/{new_thread.id}')
-
+            if check_try: 
+                return redirect(f'/threads/{new_thread.id}')
+            else:
+                return render(request, 'errors/image_error.html', {'path': 'thread_render', 'id':None, 'error': 'We cannot process this image :('})
+        else:
+            return render(request, 'errors/image_error.html', {'path': 'thread_render', 'id':None, 'error': 'File must be an image type'})
     return redirect('/threads/')
 
 def add_photo(photo_file, object_id, object_type):
@@ -73,10 +77,12 @@ def add_photo(photo_file, object_id, object_type):
             )
             # build the full url string
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
-            # we can assign to cat_id or cat (if you have a cat object)
             Image.objects.create(url=url, content_type=object_type, object_id=object_id)
         except:
-            Thread.objects.get(id=object_id).delete()
+            if str(object_type) == 'main_app | post':
+                Post.objects.get(id=object_id).delete()
+            else:
+                Thread.objects.get(id=object_id).delete()
             return False
     return True
 
@@ -123,14 +129,18 @@ def post_create(request, thread_id):
     form = PostForm(request.POST)
     # validate the form
     if form.is_valid():
-        # don't save the form to the db until it
-        # has the cat_id assigned
-        new_post = form.save(commit=False)
-        new_post.user = request.user
-        new_post.thread = Thread.objects.get(id=thread_id)
-        new_post.save()
-        add_photo(request.FILES.get('image', None), new_post.id, ContentType.objects.get_for_model(new_post))
-        return redirect(f'/threads/posts/{new_post.id}')
+        if 'image' in request.FILES.get('image', None).content_type:
+            new_post = form.save(commit=False)
+            new_post.user = request.user
+            new_post.thread = Thread.objects.get(id=thread_id)
+            new_post.save()
+            check_try = add_photo(request.FILES.get('image', None), new_post.id, ContentType.objects.get_for_model(new_post))
+            if check_try:
+                return redirect(f'/threads/posts/{new_post.id}')
+            else:
+                return render(request, 'errors/image_error.html', {'path': 'post_render', 'id':thread_id, 'error': 'We cannot process this image :('})
+        else:
+            return render(request, 'errors/image_error.html', {'path': 'post_render', 'id':thread_id, 'error': 'File must be an image type'})
     return redirect('/threads/')
 
 class PostDelete(LoginRequiredMixin, DeleteView):

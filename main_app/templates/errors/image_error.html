@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>ERROR!</h1>
+<h3>{{ error }}</h3>
+
+{% if id %}
+<a class='btn' href="{% url path id %}">Back</a>
+{% else %}
+<a class='btn' href="{% url path %}">Back</a>
+{% endif %}
+
+{% endblock %}
