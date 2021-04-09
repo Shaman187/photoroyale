@@ -20,7 +20,7 @@ No more links!!!!
 ### Technologies Used
 - Python, HTML, CSS
 - Django, Postgres
-- Javascript, Pillow.
+- Javascript, Pillow
 - Materialize
 - Heroku
 ### Getting Started
