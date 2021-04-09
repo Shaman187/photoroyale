@@ -26,6 +26,7 @@ No more links!!!!
 ### Getting Started
 - [Log in and Begin the Battle!](https://photo-royale.herokuapp.com/threads/)
 - [Trello Board](https://trello.com/b/AAaKFopi/photo-royal-project)
+- [Pitch Deck](https://docs.google.com/presentation/d/1817iOkyCpWCV-Pwj92ZVI4MTSgtotbUkQFwxUhqY49w/edit#slide=id.p)
 ### Additions We'd Like to Make
 - Add an in app photo editor.
 - The ability to sort threads.
